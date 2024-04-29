@@ -1,12 +1,12 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-// import { sbts } from "@/constants/sbt";
+import { sbts } from "@/constants/sbt";
 import React, { useState } from "react";
 import { Button, Alert } from "@material-tailwind/react";
-// import {
-//   useContractWrite,
-//   usePrepareContractWrite,
-//   useWaitForTransaction,
-// } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import { DefaultSpinner } from "@/components/spinner";
 import SuccessIcon from "@/components/icons/successIcon";
 import ErrorIcon from "@/components/icons/errorIcon";
@@ -21,36 +21,35 @@ export default function FillSbtDetails({
   const [formData, setFormData] = useState({} as any);
   const [isValid, setIsValid] = useState<boolean>(false);
   const [open, setOpen] = useState(true);
-  const [isLoading, setIsLoading] = useState(false)
-  // const { config } = usePrepareContractWrite({
-  //   address: tokenAddress,
-  //   abi: sbts[tokenName].abi,
-  //   functionName: "issueCredential",
-  //   args: prepareIssueCredentialArgs(formData),
-  // });
+  const { config } = usePrepareContractWrite({
+    address: tokenAddress,
+    abi: sbts[tokenName].abi,
+    functionName: "issueCredential",
+    args: prepareIssueCredentialArgs(formData),
+  });
 
-  // const { write, data, error, isError } = useContractWrite(config);
-  // const {
-  //   data: receipt,
-  //   isLoading,
-  //   isSuccess,
-  // } = useWaitForTransaction({ hash: data?.hash });
+  const { write, data, error, isError } = useContractWrite(config);
+  const {
+    data: receipt,
+    isLoading,
+    isSuccess,
+  } = useWaitForTransaction({ hash: data?.hash });
 
-  // function prepareIssueCredentialArgs(formData: any) {
-  //   const sbtObject = sbts[tokenName];
-  //   let args: string[] = [];
-  //   args[0] = formData["Wallet Address"];
+  function prepareIssueCredentialArgs(formData: any) {
+    const sbtObject = sbts[tokenName];
+    let args: string[] = [];
+    args[0] = formData["Wallet Address"];
 
-  //   sbtObject.sbtFields.forEach((field: any) => {
-  //     args.push(formData[field.title]);
-  //   });
+    sbtObject.sbtFields.forEach((field: any) => {
+      args.push(formData[field.title]);
+    });
 
-  //   return args;
-  // }
+    return args;
+  }
 
   function issueCredential(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // write?.();
+    write?.();
     setFormData({} as any);
   }
 
@@ -81,7 +80,7 @@ export default function FillSbtDetails({
                   </p>
 
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    {/* {sbts[tokenName].sbtFields.map((field: any) => (
+                    {sbts[tokenName].sbtFields.map((field: any) => (
                       <div className="sm:col-span-6">
                         <label className="block text-sm font-medium leading-6 text-gray-900">
                           {field.title}
@@ -102,7 +101,7 @@ export default function FillSbtDetails({
                           />
                         </div>
                       </div>
-                    ))} */}
+                    ))}
 
                     {/* Issue to wallet address */}
                     <div className="sm:col-span-6">
@@ -147,7 +146,7 @@ export default function FillSbtDetails({
           )}
         </form>
       </div>
-      {/* <div className="fixed bottom-10 right-5">
+      <div className="fixed bottom-10 right-5">
         {isSuccess && (
           <Alert
             open={open}
@@ -169,7 +168,7 @@ export default function FillSbtDetails({
             Oops! There was an error.
           </Alert>
         )}
-      </div> */}
+      </div>
     </>
   );
 }

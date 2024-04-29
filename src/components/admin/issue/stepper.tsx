@@ -9,8 +9,8 @@ import {
 } from "@heroicons/react/24/outline";
 import SbtCard from "./sbt-card";
 import FillSbtDetails from "./fill-sbt-details";
-// import { sbts } from "@/constants/sbt";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { sbts } from "@/constants/sbt";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 
 interface Sbt {
   sbtName: string;
@@ -29,30 +29,30 @@ export default function StepperIssueSbt({
   const { address } = useAccount();
   const [allowedSBTs, setAllowedSBTs] = React.useState([] as Sbt[]);
 
-  // const ALL_SBTS: Sbt[] = Object.keys(sbts).map((key) => {
-  //   return {
-  //     sbtName: sbts[key].sbtName,
-  //     sbtSymbol: sbts[key].sbtSymbol,
-  //     sbtAddress: sbts[key].sbtAddress,
-  //     active: sbts[key].active,
-  //   };
-  // });
+  const ALL_SBTS: Sbt[] = Object.keys(sbts).map((key) => {
+    return {
+      sbtName: sbts[key].sbtName,
+      sbtSymbol: sbts[key].sbtSymbol,
+      sbtAddress: sbts[key].sbtAddress,
+      active: sbts[key].active,
+    };
+  });
 
-  // let ALLOWED_SBTS = [] as Sbt[];
+  let ALLOWED_SBTS = [] as Sbt[];
 
-  // const { data, error, isLoading, isSuccess } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
-  //   onSuccess: (data: any) => {
-  //     console.log("Allowed SBTs", data?.allowedSBTs);
-  //     let allowedSbtsArray = data?.allowedSBTs;
-  //     ALLOWED_SBTS = ALL_SBTS.filter((sbt: Sbt) => {
-  //       return allowedSbtsArray.includes(sbt.sbtAddress);
-  //     });
-  //     setAllowedSBTs(ALLOWED_SBTS);
-  //   },
-  // });
+  const { data, error, isLoading, isSuccess } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
+    onSuccess: (data: any) => {
+      console.log("Allowed SBTs", data?.allowedSBTs);
+      let allowedSbtsArray = data?.allowedSBTs;
+      ALLOWED_SBTS = ALL_SBTS.filter((sbt: Sbt) => {
+        return allowedSbtsArray.includes(sbt.sbtAddress);
+      });
+      setAllowedSBTs(ALLOWED_SBTS);
+    },
+  });
 
   let currentStep = 0;
 
@@ -71,7 +71,7 @@ export default function StepperIssueSbt({
     React.useState(tokenAddress);
 
   // sbtdata
-  // const [sbtData, setSbtData] = React.useState({});
+  const [sbtData, setSbtData] = React.useState({});
 
   const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
@@ -115,7 +115,7 @@ export default function StepperIssueSbt({
             </Typography>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 w-full">
               {/* Map allowed SBTs for organization 🟡*/}
-              {/* {allowedSBTs.map((sbt) => (
+              {allowedSBTs.map((sbt) => (
                 <SbtCard
                   tokenName={sbt.sbtSymbol}
                   tokenAddress={sbt.sbtAddress}
@@ -131,7 +131,7 @@ export default function StepperIssueSbt({
                     setSelectedTokenAddress(sbt.sbtAddress);
                   }}
                 />
-              ))} */}
+              ))}
             </div>
           </div>
         )}

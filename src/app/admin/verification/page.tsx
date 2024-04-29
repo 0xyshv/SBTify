@@ -15,19 +15,19 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
-// import { sbts } from "@/constants/sbt";
+import { sbts } from "@/constants/sbt";
 import { DefaultSpinner } from "@/components/spinner";
 import VerificationRequestsTable from "@/components/admin/verification/verification-requests-table";
 import SuccessIcon from "@/components/icons/successIcon";
 import ErrorIcon from "@/components/icons/errorIcon";
 import {
   useAccount,
-  // useContractWrite,
-  // useContractRead,
-  // useWaitForTransaction,
+  useContractWrite,
+  useContractRead,
+  useWaitForTransaction,
 } from "wagmi";
 import CreateVerificationRequest from "@/components/admin/verification/create-verification-request";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 import { useRouter } from "next/navigation";
 
 const AdminVerification = () => {
@@ -37,20 +37,20 @@ const AdminVerification = () => {
 
   const router = useRouter();
 
-  // const { } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
-  //   onSuccess: (data: any) => {
-  //     console.log("Queried Auth Token", data);
-  //     if (data?.userName === "" || data?.category === "individual") {
-  //       router.push("/");
-  //     }
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
+    onSuccess: (data: any) => {
+      console.log("Queried Auth Token", data);
+      if (data?.userName === "" || data?.category === "individual") {
+        router.push("/");
+      }
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   return (
     <>

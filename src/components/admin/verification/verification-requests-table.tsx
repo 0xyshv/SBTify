@@ -24,9 +24,9 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-// import { sbts } from "@/constants/sbt";
-// import { useContractRead, useAccount } from "wagmi";
-// import { ViewModal } from "@/components/user/dashboard/view-modal";
+import { sbts } from "@/constants/sbt";
+import { useContractRead, useAccount } from "wagmi";
+import { ViewModal } from "@/components/user/dashboard/view-modal";
 
 const TABLE_HEAD = ["Credential Holder", "Requested Credential", "Status", ""];
 
@@ -46,7 +46,7 @@ export default function VerificationRequestsTable({
   requestVerification,
 }: any) {
   const router = useRouter();
-  // const { address } = useAccount();
+  const { address } = useAccount();
   const [searchTerm, setSearchTerm] = useState("");
   const [verificationRequests, setVerificationRequests] = useState<
     VerificationRequest[]
@@ -65,121 +65,121 @@ export default function VerificationRequestsTable({
     }
   }, [searchTerm]);
 
-  // const {} = useContractRead({
-  //   address: sbts.EMP.sbtAddress,
-  //   abi: sbts.EMP.abi,
-  //   functionName: "getVerificationRequestsByOrganization",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((request: any) => {
-  //       setVerificationRequests((prev: any) => [
-  //         ...prev,
-  //         {
-  //           img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-  //           credentialHolder: request.credentialHolder,
-  //           sbtName: request.sbtName,
-  //           sbtSymbol: request.sbtSymbol,
-  //           tokenId: request.tokenId,
-  //           sbtAddress: request.sbtAddress,
-  //           online: true,
-  //           status: request.status,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Verification requests data", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.EMP.sbtAddress,
+    abi: sbts.EMP.abi,
+    functionName: "getVerificationRequestsByOrganization",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((request: any) => {
+        setVerificationRequests((prev: any) => [
+          ...prev,
+          {
+            img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+            credentialHolder: request.credentialHolder,
+            sbtName: request.sbtName,
+            sbtSymbol: request.sbtSymbol,
+            tokenId: request.tokenId,
+            sbtAddress: request.sbtAddress,
+            online: true,
+            status: request.status,
+          },
+        ]);
+      });
+      console.log("Verification requests data", data);
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.EDU.sbtAddress,
-  //   abi: sbts.EDU.abi,
-  //   functionName: "getVerificationRequestsByOrganization",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((request: any) => {
-  //       setVerificationRequests((prev: any) => [
-  //         ...prev,
-  //         {
-  //           img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-  //           credentialHolder: request.credentialHolder,
-  //           sbtName: request.sbtName,
-  //           sbtSymbol: request.sbtSymbol,
-  //           tokenId: request.tokenId,
-  //           sbtAddress: request.sbtAddress,
-  //           online: true,
-  //           status: request.status,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Verification requests data", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.EDU.sbtAddress,
+    abi: sbts.EDU.abi,
+    functionName: "getVerificationRequestsByOrganization",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((request: any) => {
+        setVerificationRequests((prev: any) => [
+          ...prev,
+          {
+            img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+            credentialHolder: request.credentialHolder,
+            sbtName: request.sbtName,
+            sbtSymbol: request.sbtSymbol,
+            tokenId: request.tokenId,
+            sbtAddress: request.sbtAddress,
+            online: true,
+            status: request.status,
+          },
+        ]);
+      });
+      console.log("Verification requests data", data);
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.SSN.sbtAddress,
-  //   abi: sbts.SSN.abi,
-  //   functionName: "getVerificationRequestsByOrganization",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((request: any) => {
-  //       setVerificationRequests((prev: any) => [
-  //         ...prev,
-  //         {
-  //           img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-  //           credentialHolder: request.credentialHolder,
-  //           sbtName: request.sbtName,
-  //           sbtSymbol: request.sbtSymbol,
-  //           tokenId: request.tokenId,
-  //           sbtAddress: request.sbtAddress,
-  //           online: true,
-  //           status: request.status,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Verification requests data", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.SSN.sbtAddress,
+    abi: sbts.SSN.abi,
+    functionName: "getVerificationRequestsByOrganization",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((request: any) => {
+        setVerificationRequests((prev: any) => [
+          ...prev,
+          {
+            img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+            credentialHolder: request.credentialHolder,
+            sbtName: request.sbtName,
+            sbtSymbol: request.sbtSymbol,
+            tokenId: request.tokenId,
+            sbtAddress: request.sbtAddress,
+            online: true,
+            status: request.status,
+          },
+        ]);
+      });
+      console.log("Verification requests data", data);
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.PID.sbtAddress,
-  //   abi: sbts.PID.abi,
-  //   functionName: "getVerificationRequestsByOrganization",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((request: any) => {
-  //       setVerificationRequests((prev: any) => [
-  //         ...prev,
-  //         {
-  //           img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-  //           credentialHolder: request.credentialHolder,
-  //           sbtName: request.sbtName,
-  //           sbtSymbol: request.sbtSymbol,
-  //           tokenId: request.tokenId,
-  //           sbtAddress: request.sbtAddress,
-  //           online: true,
-  //           status: request.status,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Verification requests data", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.PID.sbtAddress,
+    abi: sbts.PID.abi,
+    functionName: "getVerificationRequestsByOrganization",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((request: any) => {
+        setVerificationRequests((prev: any) => [
+          ...prev,
+          {
+            img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+            credentialHolder: request.credentialHolder,
+            sbtName: request.sbtName,
+            sbtSymbol: request.sbtSymbol,
+            tokenId: request.tokenId,
+            sbtAddress: request.sbtAddress,
+            online: true,
+            status: request.status,
+          },
+        ]);
+      });
+      console.log("Verification requests data", data);
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   useEffect(() => {
     setFilteredRows(verificationRequests);
@@ -295,14 +295,13 @@ export default function VerificationRequestsTable({
                             alt={userName}
                             size="sm" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                           <div className="flex flex-col">
-                            {/* <Typography
+                            <Typography
                               placeholder=""
                               variant="small"
                               color="blue-gray"
-                              className="font-normal"
-                            >
+                              className="font-normal" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
                               {userName}
-                            </Typography> */}
+                            </Typography>
                             <Typography
                               placeholder=""
                               variant="small"
@@ -383,13 +382,13 @@ export default function VerificationRequestsTable({
                       </td>
                       <td className={classes}>
                         <Tooltip content="You can view this SBT">
-                          {/* <ViewModal
+                          <ViewModal
                             sbtName={sbtName}
                             sbtSymbol={sbtSymbol}
                             tokenId={tokenId}
                             status={status}
                             sbtAddress={sbtAddress as `0x${string}`}
-                          /> */}
+                          />
                         </Tooltip>
                       </td>
                     </tr>

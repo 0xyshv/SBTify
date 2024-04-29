@@ -14,8 +14,8 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { ViewModal } from "./view-modal";
-// import { sbts } from "@/constants/sbt";
-import { useAccount } from "wagmi";
+import { sbts } from "@/constants/sbt";
+import { useAccount, useContractRead } from "wagmi";
 
 const TABLE_HEAD = ["Credential Name", "Credential Symbol", "Token ID", ""];
 
@@ -25,105 +25,105 @@ export function InfoTable() {
   const [walletSbts, setWalletSbts] = useState<any>([]);
   const [tooltipContent, setTooltipContent] = useState("Copy Address");
 
-  // const {} = useContractRead({
-  //   address: sbts.EMP.sbtAddress,
-  //   abi: sbts.EMP.abi,
-  //   functionName: "getTokenIdsByWallet",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((sbt: any) => {
-  //       setWalletSbts((prev: any) => [
-  //         ...prev,
-  //         {
-  //           sbtName: sbts.EMP.sbtName,
-  //           sbtSymbol: sbts.EMP.sbtSymbol,
-  //           sbtAddress: sbts.EMP.sbtAddress,
-  //           tokenId: sbt,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Token IDs", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.EMP.sbtAddress,
+    abi: sbts.EMP.abi,
+    functionName: "getTokenIdsByWallet",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((sbt: any) => {
+        setWalletSbts((prev: any) => [
+          ...prev,
+          {
+            sbtName: sbts.EMP.sbtName,
+            sbtSymbol: sbts.EMP.sbtSymbol,
+            sbtAddress: sbts.EMP.sbtAddress,
+            tokenId: sbt,
+          },
+        ]);
+      });
+      console.log("Token IDs", data);
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.EDU.sbtAddress,
-  //   abi: sbts.EDU.abi,
-  //   functionName: "getTokenIdsByWallet",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((sbt: any) => {
-  //       setWalletSbts((prev: any) => [
-  //         ...prev,
-  //         {
-  //           sbtName: sbts.EDU.sbtName,
-  //           sbtSymbol: sbts.EDU.sbtSymbol,
-  //           sbtAddress: sbts.EDU.sbtAddress,
-  //           tokenId: sbt,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Token IDs", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.EDU.sbtAddress,
+    abi: sbts.EDU.abi,
+    functionName: "getTokenIdsByWallet",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((sbt: any) => {
+        setWalletSbts((prev: any) => [
+          ...prev,
+          {
+            sbtName: sbts.EDU.sbtName,
+            sbtSymbol: sbts.EDU.sbtSymbol,
+            sbtAddress: sbts.EDU.sbtAddress,
+            tokenId: sbt,
+          },
+        ]);
+      });
+      console.log("Token IDs", data);
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.SSN.sbtAddress,
-  //   abi: sbts.SSN.abi,
-  //   functionName: "getTokenIdsByWallet",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((sbt: any) => {
-  //       setWalletSbts((prev: any) => [
-  //         ...prev,
-  //         {
-  //           sbtName: sbts.SSN.sbtName,
-  //           sbtSymbol: sbts.SSN.sbtSymbol,
-  //           sbtAddress: sbts.SSN.sbtAddress,
-  //           tokenId: sbt,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Token IDs", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.SSN.sbtAddress,
+    abi: sbts.SSN.abi,
+    functionName: "getTokenIdsByWallet",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((sbt: any) => {
+        setWalletSbts((prev: any) => [
+          ...prev,
+          {
+            sbtName: sbts.SSN.sbtName,
+            sbtSymbol: sbts.SSN.sbtSymbol,
+            sbtAddress: sbts.SSN.sbtAddress,
+            tokenId: sbt,
+          },
+        ]);
+      });
+      console.log("Token IDs", data);
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
-  // const {} = useContractRead({
-  //   address: sbts.PID.sbtAddress,
-  //   abi: sbts.PID.abi,
-  //   functionName: "getTokenIdsByWallet",
-  //   args: [],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     data.forEach((sbt: any) => {
-  //       setWalletSbts((prev: any) => [
-  //         ...prev,
-  //         {
-  //           sbtName: sbts.PID.sbtName,
-  //           sbtSymbol: sbts.PID.sbtSymbol,
-  //           sbtAddress: sbts.PID.sbtAddress,
-  //           tokenId: sbt,
-  //         },
-  //       ]);
-  //     });
-  //     console.log("Token IDs", data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { } = useContractRead({
+    address: sbts.PID.sbtAddress,
+    abi: sbts.PID.abi,
+    functionName: "getTokenIdsByWallet",
+    args: [],
+    account: address,
+    onSuccess: (data: any) => {
+      data.forEach((sbt: any) => {
+        setWalletSbts((prev: any) => [
+          ...prev,
+          {
+            sbtName: sbts.PID.sbtName,
+            sbtSymbol: sbts.PID.sbtSymbol,
+            sbtAddress: sbts.PID.sbtAddress,
+            tokenId: sbt,
+          },
+        ]);
+      });
+      console.log("Token IDs", data);
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   useEffect(() => {
     setFilteredRows(walletSbts);

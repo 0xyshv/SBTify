@@ -1,13 +1,13 @@
 "use client";
 
 import HomeNavbar from "@/components/navbar";
-// import { sbts } from "@/constants/sbt";
+import { sbts } from "@/constants/sbt";
 import React, { useState, useEffect } from "react";
 import { Button, Alert } from "@material-tailwind/react";
 import {
-  // useContractWrite,
-  // usePrepareContractWrite,
-  // useWaitForTransaction,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
   useAccount,
 } from "wagmi";
 import { useRouter } from "next/navigation";
@@ -23,40 +23,40 @@ const User = () => {
   const [open, setOpen] = React.useState(true);
   const { address } = useAccount();
 
-  // const { write, data, error, isLoading, isError } = useContractWrite({
-  //   address: sbts.AUTH.sbtAddress,
-  //   abi: sbts.AUTH.abi,
-  //   functionName: "mintDefaultAuthSbtForTesting",
-  //   args: [address, formData.userName, "individual", []],
-  // });
-  // const {
-  //   data: receipt,
-  //   isLoading: isPending,
-  //   isSuccess,
-  // } = useWaitForTransaction({ hash: data?.hash });
+  const { write, data, error, isLoading, isError } = useContractWrite({
+    address: sbts.AUTH.sbtAddress,
+    abi: sbts.AUTH.abi,
+    functionName: "mintDefaultAuthSbtForTesting",
+    args: [address, formData.userName, "individual", []],
+  });
+  const {
+    data: receipt,
+    isLoading: isPending,
+    isSuccess,
+  } = useWaitForTransaction({ hash: data?.hash });
 
   console.log(error);
 
-  // function mintDefaultAuthSbtForTesting(e: React.FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   console.log("Address :", address, "User Name:", formData.userName);
+  function mintDefaultAuthSbtForTesting(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log("Address :", address, "User Name:", formData.userName);
 
-  //   write?.();
-  //   setFormData({});
-  // }
+    write?.();
+    setFormData({});
+  }
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     router.push("/user/dashboard");
-  //   }
-  // }, [isSuccess]);
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/user/dashboard");
+    }
+  }, [isSuccess]);
 
   return (
     <>
       <HomeNavbar />
       <div className="w-full">
         <form
-          // onSubmit={mintDefaultAuthSbtForTesting}
+          onSubmit={mintDefaultAuthSbtForTesting}
           className="lg:px-48 px-4 w-[80%] flex flex-col justify-center items-center mx-auto mt-20"
         >
           {isLoading ? (
@@ -110,7 +110,7 @@ const User = () => {
           )}
         </form>
       </div>
-      {/* <div className="fixed bottom-10 right-5">
+      <div className="fixed bottom-10 right-5">
         {isSuccess && (
           <Alert
             open={open}
@@ -132,7 +132,7 @@ const User = () => {
             Oops! There was an error.
           </Alert>
         )}
-      </div> */}
+      </div>
     </>
   );
 };

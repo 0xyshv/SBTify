@@ -1,31 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { WagmiProvider, createConfig } from "wagmi"
-import { scrollSepolia, scrollTestnet } from "wagmi/chains"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ConnectKitProvider, getDefaultConfig } from "connectkit"
+import { ConnectKitProvider } from "connectkit";
+import * as React from "react";
+import { WagmiConfig } from "wagmi";
 
-interface ProvidersProps {
-  children: React.ReactNode
-}
+import { config } from "../lib/config";
 
-const config = createConfig(
-  getDefaultConfig({
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
-    chains: [scrollSepolia, scrollTestnet],
-    appName: "SBTify",
-  })
-)
-
-const queryClient = new QueryClient()
-
-export function Providers({ children, ...props }: ProvidersProps) {
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider theme="rounded">{children}</ConnectKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  )
+    <>
+      <WagmiConfig config={config}>
+        <ConnectKitProvider theme="soft" mode="auto">
+          {mounted && children}
+        </ConnectKitProvider>
+      </WagmiConfig>
+    </>
+  );
 }

@@ -7,8 +7,8 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-// import { useAccount, useContractRead } from "wagmi";
-// import { sbts } from "@/constants/sbt";
+import { useAccount, useContractRead } from "wagmi";
+import { sbts } from "@/constants/sbt";
 
 interface ViewModalProps {
   sbtName: string;
@@ -25,23 +25,23 @@ export function ViewModal({
   status,
   tokenId,
 }: ViewModalProps) {
-  // const { address } = useAccount();
+  const { address } = useAccount();
   const [open, setOpen] = React.useState(false);
   const [sbtData, setSbtData] = React.useState<any>({});
 
   console.log(sbtAddress, sbtSymbol, tokenId, sbtName);
 
-  // const { data, isRefetching } = useContractRead({
-  //   address: sbtAddress, // Fix: Prefix sbtAddress with '0x'
-  //   abi: sbts[sbtSymbol].abi,
-  //   functionName: "verifyCredential",
-  //   args: [tokenId],
-  //   account: address,
-  //   onSuccess: (data: any) => {
-  //     console.log("Data", data);
-  //     setSbtData(data);
-  //   },
-  // });
+  const { data, isRefetching } = useContractRead({
+    address: sbtAddress, // Fix: Prefix sbtAddress with '0x'
+    abi: sbts[sbtSymbol].abi,
+    functionName: "verifyCredential",
+    args: [tokenId],
+    account: address,
+    onSuccess: (data: any) => {
+      console.log("Data", data);
+      setSbtData(data);
+    },
+  });
 
   const handleOpen = () => {
     setOpen(!open);

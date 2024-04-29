@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import HomeNavbar from "@/components/navbar";
-import { useAccount } from "wagmi";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { useAccount, useContractRead } from "wagmi";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 
 export default function App() {
   const { address, isDisconnected } = useAccount();
@@ -20,23 +20,23 @@ export default function App() {
   const [isUnregistered, setIsUnregistered] = useState(false);
 
   // to check if the user is registered or not
-  // const { error, isLoading, isSuccess } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
+  const { error, isLoading, isSuccess } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
 
-  //   onSuccess: (data: any) => {
-  //     if (data?.userName === "") {
-  //       // router.push("/");
-  //       setIsUnregistered(true);
-  //     } else if (data?.category === "individual") {
-  //       router.push("/user/dashboard");
-  //     } else router.push("/admin/dashboard");
-  //   },
-  //   onError: (error: any) => {
-  //     console.error(error);
-  //   },
-  // });
+    onSuccess: (data: any) => {
+      if (data?.userName === "") {
+        // router.push("/");
+        setIsUnregistered(true);
+      } else if (data?.category === "individual") {
+        router.push("/user/dashboard");
+      } else router.push("/admin/dashboard");
+    },
+    onError: (error: any) => {
+      console.error(error);
+    },
+  });
 
   return (
     <>

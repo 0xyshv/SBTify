@@ -7,7 +7,7 @@ import AdminNavbar from "@/components/admin/navbar";
 import StepperIssueSbt from "@/components/admin/issue/stepper";
 import { useAccount } from "wagmi";
 import { useContractRead } from "wagmi";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 import { useRouter } from "next/navigation";
 
 const AdminIssue = () => {
@@ -18,20 +18,20 @@ const AdminIssue = () => {
   const { address } = useAccount();
   const router = useRouter();
 
-  // const { error, isLoading, isSuccess } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
-  //   onSuccess: (data: any) => {
-  //     console.log("Queried Auth Token", data);
-  //     if (data?.userName === "" || data?.category === "individual") {
-  //       router.push("/");
-  //     }
-  //   },
-  //   onError: (error: any) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { error, isLoading, isSuccess } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
+    onSuccess: (data: any) => {
+      console.log("Queried Auth Token", data);
+      if (data?.userName === "" || data?.category === "individual") {
+        router.push("/");
+      }
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   return (
     <>

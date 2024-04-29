@@ -17,9 +17,9 @@ import {
   Tooltip,
   Chip,
 } from "@material-tailwind/react";
-import { useAccount, } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { useState, useEffect } from "react";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 import { useRouter } from "next/navigation";
 
 export function InfoCard() {
@@ -44,21 +44,21 @@ export function InfoCard() {
     }, 2000);
   }
 
-  // const { error, isLoading, isSuccess } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
-  //   onSuccess: (data: any) => {
-  //     console.log("Queried Auth Token", data);
-  //     if (data?.userName === "" || data?.category === "individual") {
-  //       router.push("/");
-  //     }
-  //     setAuthToken(data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { error, isLoading, isSuccess } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
+    onSuccess: (data: any) => {
+      console.log("Queried Auth Token", data);
+      if (data?.userName === "" || data?.category === "individual") {
+        router.push("/");
+      }
+      setAuthToken(data);
+    },
+    onError: (error: any) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   return (
     <Card

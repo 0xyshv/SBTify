@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -11,21 +11,18 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
-// import {
-//   useContractWrite,
-//   usePrepareContractWrite,
-//   useWaitForTransaction,
-// } from "wagmi";
-// import { authorizedUserTokenABI } from "@/lib/abi/authorizedUserTokenAbi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
+import { authorizedUserTokenABI } from "@/lib/abi/authorizedUserTokenAbi";
 import { DefaultSpinner } from "./spinner";
 import SuccessIcon from "@/components/icons/successIcon";
 import ErrorIcon from "@/components/icons/errorIcon";
 
 export function UserForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
     userName: "",
@@ -33,33 +30,29 @@ export function UserForm() {
   const handleOpen = () => setOpen((cur) => !cur);
   const handleClose = () => setOpen(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    throw new Error("Function not implemented.");
-  }
+  const { config } = usePrepareContractWrite({
+    address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+    abi: authorizedUserTokenABI,
+    functionName: "mintDefaultAuthSbtForTesting",
+    args: [formData.userName, "individual", []],
+  });
+  const { write, data, error, isLoading, isError } = useContractWrite(config);
 
-  // const { config } = usePrepareContractWrite({
-  //   address: "",
-  //   abi: authorizedUserTokenABI,
-  //   functionName: "mintDefaultAuthSbtForTesting",
-  //   args: [formData.userName, "individual", []],
-  // });
-  // const { write, data, error, isLoading, isError } = useContractWrite(config);
+  const {
+    data: receipt,
+    isLoading: isPending,
+    isSuccess,
+  } = useWaitForTransaction({ hash: data?.hash });
 
-  // const {
-  //   data: receipt,
-  //   isLoading: isPending,
-  //   isSuccess,
-  // } = useWaitForTransaction({ hash: data?.hash });
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   write?.();
-  // };
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     router.push("/user");
-  //   }
-  // }, [isSuccess, router]);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    write?.();
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/user");
+    }
+  }, [isSuccess, router]);
 
   return (
     <>

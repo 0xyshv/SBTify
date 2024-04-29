@@ -13,12 +13,12 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { useState } from "react";
-// import { useAccount, useContractRead } from "wagmi";
-// import { authorizedUserTokenContractConfig } from "@/lib/contracts";
+import { useAccount, useContractRead } from "wagmi";
+import { authorizedUserTokenContractConfig } from "@/lib/contracts";
 import { useRouter } from "next/navigation";
 
 export function InfoCard() {
-  // const { address } = useAccount();
+  const { address } = useAccount();
   const router = useRouter();
   const [authToken, setAuthToken] = useState<any>({
     userName: "",
@@ -30,29 +30,29 @@ export function InfoCard() {
   const [tooltipContent, setTooltipContent] = useState("Copy Wallet Address");
 
   // 🟢 - here is onClick function
-  // function copyAddress() {
-  //   navigator.clipboard.writeText(String(address));
-  //   setTooltipContent("Address Copied!");
-  //   setTimeout(() => {
-  //     setTooltipContent("Copy Wallet Address");
-  //   }, 2000);
-  // }
+  function copyAddress() {
+    navigator.clipboard.writeText(String(address));
+    setTooltipContent("Address Copied!");
+    setTimeout(() => {
+      setTooltipContent("Copy Wallet Address");
+    }, 2000);
+  }
 
-  // const { error, isLoading, isSuccess } = useContractRead({
-  //   ...authorizedUserTokenContractConfig,
-  //   functionName: "getVerifiedUserMetadata",
-  //   args: [address],
-  //   onSuccess: (data: any) => {
-  //     console.log("Queried Auth Token", data);
-  //     if (data?.userName === "" || !(data?.category == "individual")) {
-  //       router.push("/");
-  //     }
-  //     setAuthToken(data);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error querying Auth Token", error);
-  //   },
-  // });
+  const { error, isLoading, isSuccess } = useContractRead({
+    ...authorizedUserTokenContractConfig,
+    functionName: "getVerifiedUserMetadata",
+    args: [address],
+    onSuccess: (data: any) => {
+      console.log("Queried Auth Token", data);
+      if (data?.userName === "" || !(data?.category == "individual")) {
+        router.push("/");
+      }
+      setAuthToken(data);
+    },
+    onError: (error) => {
+      console.error("Error querying Auth Token", error);
+    },
+  });
 
   return (
     <Card
@@ -80,9 +80,9 @@ export function InfoCard() {
           color="gray"
           className="font-normal uppercase" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           Wallet Address :{" "}
-          {/* <span className="font-semibold text-blue-400">{address}</span>{" "} */}
+          <span className="font-semibold text-blue-400">{address}</span>{" "}
           {/* Here is copy icon 🟢 */}
-          {/* <Tooltip content={tooltipContent}>
+          <Tooltip content={tooltipContent}>
             <span
               onClick={copyAddress}
               className="inline-flex  h-[18px] cursor-pointer"
@@ -93,7 +93,7 @@ export function InfoCard() {
                 <DocumentDuplicateIcon />
               )}
             </span>
-          </Tooltip> */}
+          </Tooltip>
         </Typography>
       </CardHeader>
       <CardBody placeholder="" className="p-0" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

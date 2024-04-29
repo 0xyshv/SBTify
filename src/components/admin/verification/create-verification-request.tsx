@@ -14,8 +14,8 @@ import {
   Option,
 } from "@material-tailwind/react";
 import { DefaultSpinner } from "@/components/spinner";
-// import { sbts } from "@/constants/sbt";
-// import { useAccount, useContractWrite, useWaitForTransaction } from "wagmi";
+import { sbts } from "@/constants/sbt";
+import { useAccount, useContractWrite, useWaitForTransaction } from "wagmi";
 import SuccessIcon from "@/components/icons/successIcon";
 import ErrorIcon from "@/components/icons/errorIcon";
 
@@ -32,35 +32,34 @@ const CreateVerificationRequest = () => {
     sbtSymbol: "",
     tokenId: "",
   } as any);
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("");
 
-  // const { write, data, isError, isLoading } = useContractWrite({
-  //   address: formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtAddress : "",
-  //   abi: formData.sbtSymbol ? sbts[formData.sbtSymbol].abi : "",
-  //   functionName: "requestForVerification",
-  //   args: [
-  //     formData?.walletAddress,
-  //     formData?.tokenId,
-  //     formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtAddress : "",
-  //     formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtName : "",
-  //     formData?.sbtSymbol,
-  //   ],
-  //   onError: (error) => {
-  //     console.error("Error there was:", error.message);
-  //   },
-  //   onSuccess: (result) => {
-  //     console.log("Success:", result);
-  //   },
-  // });
+  const { write, data, isError, isLoading } = useContractWrite({
+    address: formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtAddress : "",
+    abi: formData.sbtSymbol ? sbts[formData.sbtSymbol].abi : "",
+    functionName: "requestForVerification",
+    args: [
+      formData?.walletAddress,
+      formData?.tokenId,
+      formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtAddress : "",
+      formData.sbtSymbol ? sbts[formData.sbtSymbol].sbtName : "",
+      formData?.sbtSymbol,
+    ],
+    onError: (error) => {
+      console.error("Error there was:", error.message);
+    },
+    onSuccess: (result) => {
+      console.log("Success:", result);
+    },
+  });
 
-  // const {
-  //   data: receipt,
-  //   isSuccess,
-  //   isLoading: isPending,
-  // } = useWaitForTransaction({
-  //   hash: data?.hash,
-  // });
+  const {
+    data: receipt,
+    isSuccess,
+    isLoading: isPending,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -109,21 +108,21 @@ const CreateVerificationRequest = () => {
                 }}
                 crossOrigin={undefined}
                 required={true} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-              {/* <Select
-                  onChange={(value: any) => {
-                    setFormData({
-                      ...formData,
-                      sbtSymbol: value,
-                    });
-                  } }
-                  label="Select SBT"
-                  placeholder={formData.sbtSymbol}
-                  value={formData.sbtSymbol} children={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+              <Select
+                onChange={(value: any) => {
+                  setFormData({
+                    ...formData,
+                    sbtSymbol: value,
+                  });
+                }}
+                label="Select SBT"
+                placeholder={formData.sbtSymbol}
+                value={formData.sbtSymbol} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
                 <Option value="EDU">Educational ID</Option>
                 <Option value="EMP">Employee ID</Option>
                 <Option value="SSN">National ID</Option>
                 <Option value="PID">Passport ID</Option>
-              </Select> */}
+              </Select>
               <Input
                 type="number"
                 className="focus:ring-0 "
@@ -152,7 +151,7 @@ const CreateVerificationRequest = () => {
       )}
 
       {/* Transaction result div */}
-      {/* <div className="fixed bottom-10 right-5">
+      <div className="fixed bottom-10 right-5">
         {isSuccess && (
           <Alert icon={<SuccessIcon />} color="green">
             Transaction Succesful
@@ -163,7 +162,7 @@ const CreateVerificationRequest = () => {
             Oops! Something went wrong
           </Alert>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

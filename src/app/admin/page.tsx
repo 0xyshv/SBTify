@@ -2,13 +2,13 @@
 
 import HomeNavbar from "@/components/navbar";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-// import { sbts } from "@/constants/sbt";
+import { sbts } from "@/constants/sbt";
 import React, { useEffect, useState } from "react";
 import { Button, Alert } from "@material-tailwind/react";
 import {
-  // useContractWrite,
-  // usePrepareContractWrite,
-  // useWaitForTransaction,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
   useAccount,
 } from "wagmi";
 import { DefaultSpinner } from "@/components/spinner";
@@ -22,38 +22,38 @@ const Admin = () => {
   const [open, setOpen] = React.useState(true);
   const { address } = useAccount();
 
-  // const { write, data, error, isLoading, isError } = useContractWrite({
-  //   address: sbts.AUTH.sbtAddress,
-  //   abi: sbts.AUTH.abi,
-  //   functionName: "mintDefaultAuthSbtForTesting",
-  //   args: [
-  //     address,
-  //     formData.userName,
-  //     formData.category,
-  //     [
-  //       sbts.EDU.sbtAddress,
-  //       sbts.EMP.sbtAddress,
-  //       sbts.SSN.sbtAddress,
-  //       sbts.PID.sbtAddress,
-  //     ],
-  //   ],
-  // });
-  // const {
-  //   data: receipt,
-  //   isLoading: isPending,
-  //   isSuccess,
-  // } = useWaitForTransaction({ hash: data?.hash });
+  const { write, data, error, isLoading, isError } = useContractWrite({
+    address: sbts.AUTH.sbtAddress,
+    abi: sbts.AUTH.abi,
+    functionName: "mintDefaultAuthSbtForTesting",
+    args: [
+      address,
+      formData.userName,
+      formData.category,
+      [
+        sbts.EDU.sbtAddress,
+        sbts.EMP.sbtAddress,
+        sbts.SSN.sbtAddress,
+        sbts.PID.sbtAddress,
+      ],
+    ],
+  });
+  const {
+    data: receipt,
+    isLoading: isPending,
+    isSuccess,
+  } = useWaitForTransaction({ hash: data?.hash });
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     router.push("/admin/dashboard");
-  //   }
-  // }, [isSuccess]);
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/admin/dashboard");
+    }
+  }, [isSuccess]);
 
   function mintDefaultAuthSbtForTesting(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // console.log("Address :", address, "User Name:", formData.userName);
-    // write?.();
+    console.log("Address :", address, "User Name:", formData.userName);
+    write?.();
     setFormData({});
   }
 
@@ -130,8 +130,7 @@ const Admin = () => {
                 <Button
                   placeholder=""
                   type="submit"
-                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                >
                   Register
                 </Button>
               </div>
