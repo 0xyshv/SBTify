@@ -121,7 +121,7 @@ export default function UserNavbar() {
             className="mr-4 ml-2 cursor-pointer py-1.5 font-bold text-3xl"
             placeholder="" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             <FingerPrintIcon className="h-12 w-12 inline-block mr-2 text-gray-500" />
-            sov<span className="font-extrabold text-purple-400">ID</span>
+            SBT<span className="font-extrabold text-purple-400">ify</span>
           </Typography>
           <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
             <NavList />
