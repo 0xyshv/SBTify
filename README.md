@@ -51,13 +51,12 @@ Follow these instructions to set up and run the project:
 
 ## App Demo
 
-![image](./public/ad1.jpeg)
-![image](./public/ad2.jpeg)
-![image](./public/ad3.jpeg)
-![image](./public/ad4.jpeg)
-![image](./public/ad5.jpeg)
-![image](./public/ad6.jpeg)
-![image](./public/ad7.jpeg)
+![image](./public/ad1.png)
+![image](./public/ad2.png)
+![image](./public/ad3.png)
+![image](./public/ad4.png)
+![image](./public/ad5.png)
+![image](./public/ad6.png)
 
 ## Tech Stack
 
