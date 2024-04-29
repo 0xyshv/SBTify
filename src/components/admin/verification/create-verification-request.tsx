@@ -72,7 +72,7 @@ const CreateVerificationRequest = () => {
       return;
     }
     console.log(formData);
-    // write?.();
+    write?.();
     setFormData({ walletAddress: "", sbtSymbol: "", tokenId: "" });
   }
 

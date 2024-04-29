@@ -310,14 +310,13 @@ export default function VerificationRequestsTable() {
                         <div className="flex items-center gap-3">
                           <Avatar placeholder="" src={img} size="sm" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                           <div className="flex flex-col">
-                            {/* <Typography
+                            <Typography
                               placeholder=""
                               variant="small"
                               color="blue-gray"
-                              className="font-normal"
-                            >
-                              {userName}
-                            </Typography> */}
+                              className="font-normal" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}                            >
+                              {requestedBy}
+                            </Typography>
                             <Typography
                               placeholder=""
                               variant="small"
