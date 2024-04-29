@@ -41,7 +41,7 @@ export default function App() {
   return (
     <>
       <HomeNavbar />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className="flex min-h-screen gap-10 items-center justify-between p-24">
         <div className="text-center">
           {" "}
           <Card className="mt-6 mx-20" placeholder="" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
